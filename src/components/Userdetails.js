@@ -9,9 +9,7 @@ const UserDetails = () => {
     // Fetch user details from the server when the component mounts
     const fetchUserDetails = async () => {
       try {
-        const response = await Axios.get(
-          "https://react-finder-backend.onrender.com/Route"
-        );
+        const response = await Axios.get("http://localhost:4001/Route");
         setUserDetails(response.data);
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -22,9 +20,7 @@ const UserDetails = () => {
   }, []);
 
   const handleClick = (userId) => {
-    Axios.delete(
-      `https://react-finder-backend.onrender.com/Route/delete-user/${userId}`
-    )
+    Axios.delete(`http://localhost:4001/Route/delete-user/${userId}`)
       .then((res) => {
         if (res.status === 200) {
           alert("Record deleted successfully");

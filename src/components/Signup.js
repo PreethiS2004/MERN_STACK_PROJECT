@@ -14,10 +14,7 @@ function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = { email: arr[0], username: arr[1], password: arr[2] };
-    Axios.post(
-      "https://react-finder-backend.onrender.com/Route/user-signup",
-      data
-    )
+    Axios.post("http://localhost:4001/Route/user-signup", data)
       .then((res) => {
         if (res.status === 200) {
           alert("Successfull Signup");

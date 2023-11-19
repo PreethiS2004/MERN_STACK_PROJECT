@@ -11,7 +11,7 @@ const Recipe = () => {
     const fetchRandomRecipes = async () => {
       try {
         const response = await axios.get(
-          "https://react-finder-backend.onrender.com/RecipeRoute/list"
+          "http://localhost:4001/RecipeRoute/list"
         );
         setRecipes(response.data);
       } catch (error) {
@@ -170,7 +170,7 @@ const SearchRecipe = ({ setRecipes }) => {
   const handlerecipeSearch = async () => {
     try {
       const response = await axios.get(
-        `https://react-finder-backend.onrender.com/RecipeRoute/recipe/${recipequery}`
+        `http://localhost:4001/RecipeRoute/recipe/${recipequery}`
       );
       setRecipes(response.data); // Set the recipes from the search
     } catch (error) {
@@ -181,7 +181,7 @@ const SearchRecipe = ({ setRecipes }) => {
   const handleingredientSearch = async () => {
     try {
       const response = await axios.get(
-        `https://react-finder-backend.onrender.com/RecipeRoute/ingredient/${ingredientquery}`
+        `http://localhost:4001/RecipeRoute/ingredient/${ingredientquery}`
       );
       setRecipes(response.data); // Set the recipes from the search
     } catch (error) {
@@ -204,7 +204,7 @@ const SearchRecipe = ({ setRecipes }) => {
 
     try {
       const response = await axios.get(
-        `https://react-finder-backend.onrender.com/RecipeRoute/${type}/${query}`
+        `http://localhost:4001/RecipeRoute/${type}/${query}`
       );
       setRecipes(response.data);
     } catch (error) {

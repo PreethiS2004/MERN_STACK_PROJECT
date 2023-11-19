@@ -15,10 +15,7 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = { username: arr[0], password: arr[1] };
-    Axios.post(
-      "https://react-finder-backend.onrender.com/Route/admin-login",
-      data
-    )
+    Axios.post("http://localhost:4001/Route/admin-login", data)
       .then((res) => {
         if (res.status === 200) {
           alert("Admin Login successful");
