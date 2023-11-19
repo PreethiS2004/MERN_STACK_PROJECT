@@ -30,7 +30,7 @@ const Recipe = () => {
 
   return (
     <div>
-      <SearchRecipe setRecipes={setRecipes} />
+      {recipeclick && <SearchRecipe setRecipes={setRecipes} />}
       {recipeclick && (
         <div
           style={{
