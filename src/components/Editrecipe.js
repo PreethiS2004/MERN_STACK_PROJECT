@@ -9,7 +9,9 @@ const Editrecipe = () => {
     // Fetch recipe details from the server when the component mounts
     const fetchRecipeDetails = async () => {
       try {
-        const response = await Axios.get("http://localhost:4001/RecipeRoute");
+        const response = await Axios.get(
+          "https://react-finder-backend.onrender.com/RecipeRoute"
+        );
         setRecipeDetails(response.data);
       } catch (error) {
         console.error("Error fetching recipe details:", error.message);
@@ -20,14 +22,18 @@ const Editrecipe = () => {
   }, []);
 
   const handleClick = (recipeId) => {
-    Axios.delete(`http://localhost:4001/RecipeRoute/delete-recipe/${recipeId}`)
+    Axios.delete(
+      `https://react-finder-backend.onrender.com/RecipeRoute/delete-recipe/${recipeId}`
+    )
       .then((res) => {
         if (res.status === 200) {
           alert("Record deleted successfully");
           window.location.reload();
         } else {
           console.error("Delete request failed with status:", res.status);
-          return Promise.reject(`Delete request failed with status: ${res.status}`);
+          return Promise.reject(
+            `Delete request failed with status: ${res.status}`
+          );
         }
       })
       .catch((err) => {
@@ -57,7 +63,10 @@ const Editrecipe = () => {
               <td>{recipe.strCategory}</td>
               <td>{recipe.strArea}</td>
               <td>
-                <button onClick={() => handleClick(recipe._id)} className="btn btn-danger">
+                <button
+                  onClick={() => handleClick(recipe._id)}
+                  className="btn btn-danger"
+                >
                   Remove
                 </button>
               </td>

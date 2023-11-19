@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -12,7 +11,7 @@ const Recipe = () => {
     const fetchRandomRecipes = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4001/RecipeRoute/list"
+          "https://react-finder-backend.onrender.com/RecipeRoute/list"
         );
         setRecipes(response.data);
       } catch (error) {
@@ -33,7 +32,14 @@ const Recipe = () => {
     <div>
       <SearchRecipe setRecipes={setRecipes} />
       {recipeclick && (
-        <div style={{ display: "flex", flexWrap: "wrap" ,marginLeft:"10%",marginTop:"3%"}}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            marginLeft: "10%",
+            marginTop: "3%",
+          }}
+        >
           {recipes.map((recipe, index) => (
             <div
               key={index}
@@ -64,74 +70,92 @@ const Recipe = () => {
       )}
 
       {!recipeclick && (
-      <div style={{marginTop:"5%",marginLeft:"7%"}}>
-         <div
-              style={{
-                
-                borderRadius: "8px",
-                padding: "16px",
-                margin: "16px",
-                cursor: "pointer",
-                width: "90%",
-                height: "90%",
-                backgroundColor: "rgb(226, 224, 224)",
-              }}>
-        <div style={{ display: "flex" }}>
-          <div style={{ marginRight: "20px", maxWidth: "30%" }}>
-            <img
-              src={selectedRecipe.strMealThumb}
-              alt={selectedRecipe.strMeal}
-              style={{
-                width: "200px",
-                borderRadius: "50%",
-                marginTop:"50%",
-                marginLeft:"15%"
-              }}
-            />
-          </div>
-          <div>
-          <div style={{ flex: 1, textAlign: "justify", textJustify: "inter-word", marginTop: "30px",marginLeft:"60px" }}>
-            <h3 style={{fontSize:"35px",marginLeft:"25%"}}>{selectedRecipe.strMeal}</h3>
-            
-            <h3 style={{marginTop:"2%"}}>Instruction</h3>
-            <p
-              style={{
-              textAlign: "justify",
-              textJustify: "inter-word",
-              }}
-            >
-          {selectedRecipe.strInstructions}
-           </p>
-           </div>
-            <div style={{ flex: 1, textAlign: "justify", textJustify: "inter-word" ,marginTop: "30px",marginLeft:"60px" }}>
-         <h3>Ingredients</h3>
-         <ul>
-          {Array.from({ length: 20 }, (_, index) => index + 1)
-            .filter((index) => selectedRecipe[`strIngredient${index}`])
-            .map((index) => (
-              <li key={index}>
-                {selectedRecipe[`strIngredient${index}`]} -{" "}
-                {selectedRecipe[`strMeasure${index}`]}
-              </li>
-            ))}
-        </ul>
-      </div>
-            <button
-              style={{ borderRadius: "5px" ,marginLeft:"40%"}}
-              onClick={() => {
-                setSelectedRecipe(null);
-                setrecipeclick(true);
-              }}
-            >
-              Go back
-            </button>
+        <div style={{ marginTop: "5%", marginLeft: "7%" }}>
+          <div
+            style={{
+              borderRadius: "8px",
+              padding: "16px",
+              margin: "16px",
+              cursor: "pointer",
+              width: "90%",
+              height: "90%",
+              backgroundColor: "rgb(226, 224, 224)",
+            }}
+          >
+            <div style={{ display: "flex" }}>
+              <div style={{ marginRight: "20px", maxWidth: "30%" }}>
+                <img
+                  src={selectedRecipe.strMealThumb}
+                  alt={selectedRecipe.strMeal}
+                  style={{
+                    width: "200px",
+                    borderRadius: "50%",
+                    marginTop: "50%",
+                    marginLeft: "15%",
+                  }}
+                />
+              </div>
+              <div>
+                <div
+                  style={{
+                    flex: 1,
+                    textAlign: "justify",
+                    textJustify: "inter-word",
+                    marginTop: "30px",
+                    marginLeft: "60px",
+                  }}
+                >
+                  <h3 style={{ fontSize: "35px", marginLeft: "25%" }}>
+                    {selectedRecipe.strMeal}
+                  </h3>
+
+                  <h3 style={{ marginTop: "2%" }}>Instruction</h3>
+                  <p
+                    style={{
+                      textAlign: "justify",
+                      textJustify: "inter-word",
+                    }}
+                  >
+                    {selectedRecipe.strInstructions}
+                  </p>
+                </div>
+                <div
+                  style={{
+                    flex: 1,
+                    textAlign: "justify",
+                    textJustify: "inter-word",
+                    marginTop: "30px",
+                    marginLeft: "60px",
+                  }}
+                >
+                  <h3>Ingredients</h3>
+                  <ul>
+                    {Array.from({ length: 20 }, (_, index) => index + 1)
+                      .filter(
+                        (index) => selectedRecipe[`strIngredient${index}`]
+                      )
+                      .map((index) => (
+                        <li key={index}>
+                          {selectedRecipe[`strIngredient${index}`]} -{" "}
+                          {selectedRecipe[`strMeasure${index}`]}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+                <button
+                  style={{ borderRadius: "5px", marginLeft: "40%" }}
+                  onClick={() => {
+                    setSelectedRecipe(null);
+                    setrecipeclick(true);
+                  }}
+                >
+                  Go back
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>      
-        
       )}
-
     </div>
   );
 };
@@ -146,32 +170,28 @@ const SearchRecipe = ({ setRecipes }) => {
   const handlerecipeSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/RecipeRoute/recipe/${recipequery}`
+        `https://react-finder-backend.onrender.com/RecipeRoute/recipe/${recipequery}`
       );
       setRecipes(response.data); // Set the recipes from the search
     } catch (error) {
       console.error("Error searching recipes:", error);
     }
-
   };
 
   const handleingredientSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4001/RecipeRoute/ingredient/${ingredientquery}`
+        `https://react-finder-backend.onrender.com/RecipeRoute/ingredient/${ingredientquery}`
       );
       setRecipes(response.data); // Set the recipes from the search
     } catch (error) {
       console.error("Error searching recipes:", error);
     }
- 
   };
 
- 
   const handleSearch = async (type) => {
     let query = "";
     switch (type) {
-      
       case "category":
         query = categoryquery;
         break;
@@ -184,7 +204,7 @@ const SearchRecipe = ({ setRecipes }) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:4001/RecipeRoute/${type}/${query}`
+        `https://react-finder-backend.onrender.com/RecipeRoute/${type}/${query}`
       );
       setRecipes(response.data);
     } catch (error) {
@@ -194,7 +214,7 @@ const SearchRecipe = ({ setRecipes }) => {
 
   const searchBoxContainerStyle = {
     display: "flex",
-    marginTop:"10px",
+    marginTop: "10px",
   };
 
   const searchBoxStyle = {
@@ -205,36 +225,56 @@ const SearchRecipe = ({ setRecipes }) => {
       {recipeclick && (
         <div style={searchBoxStyle}>
           <input
-          style={{borderRadius:"5px",borderWidth:"1px",marginLeft:"200px"}}
+            style={{
+              borderRadius: "5px",
+              borderWidth: "1px",
+              marginLeft: "200px",
+            }}
             type="text"
             value={recipequery}
             placeholder="Search Recipes"
             onChange={(e) => setrecipeQuery(e.target.value)}
           />
-          <button style={{borderRadius:"5px",border:"0",marginLeft:"15px"}} onClick={handlerecipeSearch}>Search</button>
+          <button
+            style={{ borderRadius: "5px", border: "0", marginLeft: "15px" }}
+            onClick={handlerecipeSearch}
+          >
+            Search
+          </button>
         </div>
       )}
       {recipeclick && (
         <div style={searchBoxStyle}>
           <input
-          style={{borderRadius:"5px",borderWidth:"1px",marginLeft:"10px"}}
+            style={{
+              borderRadius: "5px",
+              borderWidth: "1px",
+              marginLeft: "10px",
+            }}
             type="text"
             value={ingredientquery}
             placeholder="Search Ingredient"
             onChange={(e) => setingredientQuery(e.target.value)}
           />
-          <button style={{borderRadius:"5px",border:"0",marginLeft:"15px"}} onClick={handleingredientSearch}>Search</button>
+          <button
+            style={{ borderRadius: "5px", border: "0", marginLeft: "15px" }}
+            onClick={handleingredientSearch}
+          >
+            Search
+          </button>
         </div>
       )}
       {recipeclick && (
         <div style={searchBoxStyle}>
-           <select
-           style={{borderRadius:"5px",marginLeft:"10px"}}
+          <select
+            style={{ borderRadius: "5px", marginLeft: "10px" }}
             type="text"
             value={categoryquery}
             onChange={(e) => setcategoryQuery(e.target.value)}
           >
-            <option value="" style={{color:"rgb(226, 224, 224)"}}>Category</option>
+            <option value="" style={{ color: "rgb(226, 224, 224)" }}>
+              Category
+            </option>
             <option value="Beef">Beef</option>
             <option value="Breakfast">Breakfast</option>
             <option value="Chicken">Chicken</option>
@@ -250,17 +290,25 @@ const SearchRecipe = ({ setRecipes }) => {
             <option value="Vegan">Vegan</option>
             <option value="Vegetarian">Vegetarian</option>
           </select>
-            <button style={{borderRadius:"5px",border:"0",marginLeft:"15px"}} onClick={() => handleSearch("category")}>Search</button>        </div>
+          <button
+            style={{ borderRadius: "5px", border: "0", marginLeft: "15px" }}
+            onClick={() => handleSearch("category")}
+          >
+            Search
+          </button>{" "}
+        </div>
       )}
       {recipeclick && (
         <div style={searchBoxStyle}>
           <select
-          style={{borderRadius:"5px",marginLeft:"10px"}}
+            style={{ borderRadius: "5px", marginLeft: "10px" }}
             type="text"
             value={cuisinequery}
             onChange={(e) => setcuisineQuery(e.target.value)}
           >
-            <option value="" style={{color:"rgb(226, 224, 224)"}}>Cuisine</option>
+            <option value="" style={{ color: "rgb(226, 224, 224)" }}>
+              Cuisine
+            </option>
             <option value="American">American</option>
             <option value="Canadian">Canadian</option>
             <option value="Chinese">Chinese</option>
@@ -268,31 +316,34 @@ const SearchRecipe = ({ setRecipes }) => {
             <option value="Dutch">Dutch</option>
             <option value="Egyptian">Egyptian</option>
             <option value="Filipino">Filipino</option>
-           <option value="French">French</option>
-           <option value="Greek">Greek</option>
-           <option value="Indian">Indian</option>
-           <option value="Irish">Irish</option>
-           <option value="Italian">Italian</option>
-           <option value="Jamaican">Jamaican</option>
-           <option value="Japanese">Japanese</option>
-           <option value="Kenyan">Kenyan</option>
-           <option value="Malaysian">Malaysian</option>
-           <option value="Mexican">Mexican</option>
-           <option value="Moroccan">Moroccan</option>
-           <option value="Portuguese">Portuguese</option>
-           <option value="Russian">Russian</option>
-           <option value="Spanish">Spanish</option>
-           <option value="Thai">Thai</option>
-           <option value="Tunisian">Tunisian</option>
-           <option value="Turkish">Turkish</option>
-           <option value="Unknown">Unknown</option>
-           <option value="Vietnamese">Vietnamese</option>
-            
+            <option value="French">French</option>
+            <option value="Greek">Greek</option>
+            <option value="Indian">Indian</option>
+            <option value="Irish">Irish</option>
+            <option value="Italian">Italian</option>
+            <option value="Jamaican">Jamaican</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Kenyan">Kenyan</option>
+            <option value="Malaysian">Malaysian</option>
+            <option value="Mexican">Mexican</option>
+            <option value="Moroccan">Moroccan</option>
+            <option value="Portuguese">Portuguese</option>
+            <option value="Russian">Russian</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Thai">Thai</option>
+            <option value="Tunisian">Tunisian</option>
+            <option value="Turkish">Turkish</option>
+            <option value="Unknown">Unknown</option>
+            <option value="Vietnamese">Vietnamese</option>
           </select>
-            <button style={{borderRadius:"5px",border:"0",marginLeft:"15px"}} onClick={() => handleSearch("cuisine")}>Search</button>       
+          <button
+            style={{ borderRadius: "5px", border: "0", marginLeft: "15px" }}
+            onClick={() => handleSearch("cuisine")}
+          >
+            Search
+          </button>
         </div>
       )}
-      
     </div>
   );
 };
